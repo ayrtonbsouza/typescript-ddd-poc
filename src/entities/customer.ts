@@ -1,31 +1,22 @@
 export class Customer {
   _id: string;
-  _name: string;
-  _address: string;
+  _name = '';
+  _address = '';
+  _active = true;
 
-  constructor(id: string, name: string, address: string) {
+  constructor(id: string, name: string) {
     this._id = id;
     this._name = name;
-    this._address = address;
+    this.validate();
   }
 
-  get id(): string {
-    return this._id;
-  }
+  validate() {
+    if (this._name.length === 0) {
+      throw new Error('Name is required');
+    }
 
-  get name(): string {
-    return this._name;
-  }
-
-  set name(name: string) {
-    this._name = name;
-  }
-
-  get address(): string {
-    return this._address;
-  }
-
-  set address(address: string) {
-    this._address = address;
+    if (this._address.length === 0) {
+      throw new Error('Address is required');
+    }
   }
 }
