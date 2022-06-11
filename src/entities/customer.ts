@@ -1,7 +1,9 @@
+import { Address } from './address';
+
 export class Customer {
   _id: string;
   _name = '';
-  _address = '';
+  _address!: Address;
   _active = true;
 
   constructor(id: string, name: string) {
@@ -14,9 +16,9 @@ export class Customer {
     if (this._name.length === 0) {
       throw new Error('Name is required');
     }
+  }
 
-    if (this._address.length === 0) {
-      throw new Error('Address is required');
-    }
+  set Address(address: Address) {
+    this._address = address;
   }
 }
