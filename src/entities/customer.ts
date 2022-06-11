@@ -18,6 +18,10 @@ export class Customer {
     }
   }
 
+  activate() {
+    this._active = true;
+  }
+
   set Address(address: Address) {
     this._address = address;
   }
