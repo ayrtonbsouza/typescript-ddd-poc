@@ -10,7 +10,6 @@ customer.Address = address;
 
 customer.activate();
 
-const item1 = new OrderItem('123', 'Item 1', 10);
-const item2 = new OrderItem('456', 'Item 2', 20);
-
-const order = new Order('123', '123', [item1, item2]);
+const item1 = new OrderItem('1', '1234567890', 'First Item', 10, 2);
+const item2 = new OrderItem('2', '0987654321', 'Second Item', 20, 2);
+const order = new Order('1234567890', '1234567890', [item1, item2]);

@@ -4,7 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "test": "jest"
+    "test": "tsc --noEmit && jest",
+    "tsc": "tsc"
   },
   "devDependencies": {
     "@swc/cli": "^0.1.57",
