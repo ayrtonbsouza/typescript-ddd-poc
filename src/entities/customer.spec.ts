@@ -1,7 +1,7 @@
 import { Address } from './address';
 import { Customer } from './customer';
 
-describe('Customer', () => {
+describe('Customer Entity', () => {
   it('should not be able to create a new category instance when id is empty', () => {
     expect(() => {
       const customer = new Customer('', 'John Doe');
