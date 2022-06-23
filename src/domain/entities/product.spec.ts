@@ -1,4 +1,4 @@
-import { Product } from './product';
+import { Product } from './Product';
 
 describe('Product Entity', () => {
   it('should not be able to create a new product instance when id is empty', () => {

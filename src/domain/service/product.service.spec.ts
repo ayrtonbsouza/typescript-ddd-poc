@@ -1,5 +1,5 @@
-import { Product } from '../entities/product';
-import { ProductService } from './product.service';
+import { Product } from '../entities/Product';
+import { ProductService } from './Product.service';
 
 describe('Product Service', () => {
   it('should be able to change price of all products', () => {

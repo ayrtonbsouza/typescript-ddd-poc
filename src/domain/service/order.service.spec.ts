@@ -1,5 +1,5 @@
 import { Customer, Order, OrderItem } from '../entities';
-import { OrderService } from './order.service';
+import { OrderService } from './Order.service';
 
 describe('Order Service', () => {
   it('should be able to place a new order', () => {

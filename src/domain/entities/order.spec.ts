@@ -1,5 +1,5 @@
-import { Order } from './order';
-import { OrderItem } from './order_item';
+import { Order } from './Order';
+import { OrderItem } from './OrderItem';
 
 describe('Order Entity', () => {
   it('should not be able to create a new order instance when id is empty', () => {
