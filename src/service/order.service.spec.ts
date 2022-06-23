@@ -6,7 +6,7 @@ describe('Order Service', () => {
     const customer = new Customer('1234567890', 'John Doe');
     const item = new OrderItem('1', '1234567890', 'First Item', 100, 2);
 
-    const order = new OrderService.placeOrder(customer, [item]);
+    const order = OrderService.placeOrder(customer, [item]);
 
     expect(customer.rewardPoints).toBe(100);
     expect(order.total()).toBe(200);
