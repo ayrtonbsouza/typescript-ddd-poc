@@ -26,7 +26,7 @@ describe('Customer Entity', () => {
     const customer = new Customer('1234567890', 'John Doe');
     const address = new Address('123 Main St', 123, '12345', 'Anytown', 'CA');
 
-    customer.Address = address;
+    customer.changeAddress(address);
     customer.activate();
 
     expect(customer.isActive()).toBe(true);

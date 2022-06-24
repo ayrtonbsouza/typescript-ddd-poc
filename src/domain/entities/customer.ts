@@ -31,6 +31,10 @@ export class Customer {
     return this._name;
   }
 
+  get address(): Address {
+    return this._address;
+  }
+
   get rewardPoints(): number {
     return this._rewardPoints;
   }
@@ -38,6 +42,10 @@ export class Customer {
   changeName(name: string) {
     this._name = name;
     this.validate();
+  }
+
+  changeAddress(address: Address) {
+    this._address = address;
   }
 
   activate() {
@@ -58,9 +66,5 @@ export class Customer {
 
   addRewardPoints(points: number) {
     this._rewardPoints += points;
-  }
-
-  set Address(address: Address) {
-    this._address = address;
   }
 }
