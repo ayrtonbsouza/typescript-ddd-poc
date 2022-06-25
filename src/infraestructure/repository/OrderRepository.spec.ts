@@ -13,6 +13,7 @@ import {
   ProductModel,
 } from '../database/sequelize/model';
 import { CustomerRepository } from './CustomerRepository';
+import { OrderRepository } from './OrderRepository';
 import { ProductRepository } from './ProductRepository';
 
 describe('Order Repository', () => {
@@ -73,12 +74,12 @@ describe('Order Repository', () => {
       total: 200,
       items: [
         {
-          id: '1234567890',
-          productId: '1234567890',
-          productName: 'Product 1',
-          price: 100,
-          quantity: 2,
-          orderId: '1234567890',
+          id: orderItem.id,
+          productId: orderItem.productId,
+          name: orderItem.name,
+          price: orderItem.price,
+          quantity: orderItem.quantity,
+          orderId: order.id,
         },
       ],
     });
