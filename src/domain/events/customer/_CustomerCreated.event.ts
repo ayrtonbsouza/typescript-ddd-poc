@@ -1,11 +1,11 @@
 import { IEvent } from '../@shared/IEvent';
 
-export class ProductCreatedEvent implements IEvent {
-  dataTimeOccurred: Date;
+export class CustomerCreatedEvent implements IEvent {
+  dateTimeOccurred: Date;
   eventData: any;
 
   constructor(eventData: any) {
-    this.dataTimeOccurred = new Date();
+    this.dateTimeOccurred = new Date();
     this.eventData = eventData;
   }
 }

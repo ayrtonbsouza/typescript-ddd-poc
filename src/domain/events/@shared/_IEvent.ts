@@ -1,4 +1,4 @@
 export interface IEvent {
-  dataTimeOccurred: Date;
+  dateTimeOccurred: Date;
   eventData: any;
 }
