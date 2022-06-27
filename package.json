@@ -7,6 +7,13 @@
     "test": "tsc --noEmit && jest",
     "tsc": "tsc"
   },
+  "dependencies": {
+    "reflect-metadata": "^0.1.13",
+    "sequelize": "^6.21.0",
+    "sequelize-typescript": "^2.1.3",
+    "sqlite3": "^5.0.8",
+    "uuid": "^8.3.2"
+  },
   "devDependencies": {
     "@swc/cli": "^0.1.57",
     "@swc/core": "^1.2.198",
@@ -26,12 +33,5 @@
     "prettier": "^2.6.2",
     "ts-node": "^10.8.1",
     "typescript": "^4.7.3"
-  },
-  "dependencies": {
-    "reflect-metadata": "^0.1.13",
-    "sequelize": "^6.21.0",
-    "sequelize-typescript": "^2.1.3",
-    "sqlite3": "^5.0.8",
-    "uuid": "^8.3.2"
   }
 }

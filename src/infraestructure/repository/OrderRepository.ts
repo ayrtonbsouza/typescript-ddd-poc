@@ -24,7 +24,7 @@ export class OrderRepository implements IOrderRepository {
   }
 
   async update(entity: Order): Promise<void> {
-    const items = entity.items.map(async (item) => {
+    entity.items.map(async (item) => {
       await OrderItemModel.update(
         {
           id: item.id,
@@ -35,13 +35,6 @@ export class OrderRepository implements IOrderRepository {
         },
         { where: { id: item.id } }
       );
-      return new OrderItem(
-        item.id,
-        item.productId,
-        item.name,
-        item.price,
-        item.quantity
-      );
     });
 
     await OrderModel.update(
@@ -49,7 +42,6 @@ export class OrderRepository implements IOrderRepository {
         id: entity.id,
         customer_id: entity.customerId,
         total: entity.total(),
-        items,
       },
       {
         where: { id: entity.id },
