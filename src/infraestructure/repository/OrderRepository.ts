@@ -1,4 +1,4 @@
-import { Order } from '../../domain/entities';
+import { Order, OrderItem } from '../../domain/entities';
 import { IOrderRepository } from '../../domain/repository/IOrderRepository';
 import { OrderItemModel, OrderModel } from '../database/sequelize/model';
 
@@ -24,14 +24,68 @@ export class OrderRepository implements IOrderRepository {
   }
 
   async update(entity: Order): Promise<void> {
-    throw new Error('Method not implemented.');
+    const items = entity.items.map(async (item) => {
+      await OrderItemModel.update(
+        {
+          id: item.id,
+          productId: item.productId,
+          name: item.name,
+          price: item.price,
+          quantity: item.quantity,
+        },
+        { where: { id: item.id } }
+      );
+      return new OrderItem(
+        item.id,
+        item.productId,
+        item.name,
+        item.price,
+        item.quantity
+      );
+    });
+
+    await OrderModel.update(
+      {
+        id: entity.id,
+        customer_id: entity.customerId,
+        total: entity.total(),
+        items,
+      },
+      {
+        where: { id: entity.id },
+      }
+    );
   }
 
   async find(id: string): Promise<Order> {
-    throw new Error('Method not implemented.');
+    const orderModel = await OrderModel.findOne({ where: { id } });
+    const orderItems = orderModel.items.map(
+      (item) =>
+        new OrderItem(
+          item.id,
+          item.productId,
+          item.name,
+          item.price,
+          item.quantity
+        )
+    );
+    return new Order(orderModel.id, orderModel.customerId, orderItems);
   }
 
   async findAll(): Promise<Order[]> {
-    throw new Error('Method not implemented.');
+    const orderModels = await OrderModel.findAll();
+    return orderModels.map((orderModel) => {
+      const orderItems = orderModel.items.map(
+        (item) =>
+          new OrderItem(
+            item.id,
+            item.productId,
+            item.name,
+            item.price,
+            item.quantity
+          )
+      );
+      return new Order(orderModel.id, orderModel.customerId, orderItems);
+    });
   }
 }
