@@ -11,24 +11,24 @@ export class Customer {
   private _active = false;
   private _rewardPoints = 0;
   private eventDispatcher = new EventDispatcher();
-  private sendEmailWhenCustomerIsCreatedHandler =
-    new SendEmailWhenCustomerIsCreatedHandler();
-  private sendSMSWhenCustomerIsCreatedHandler =
-    new SendSMSWhenCustomerIsCreatedHandler();
-  private sendEmailWhenCustomerAddressIsUpdatedHandler =
-    new SendEmailWhenCustomerAddressIsUpdatedHandler();
 
   constructor(id: string, name: string) {
     this._id = id;
     this._name = name;
     this.validate();
+
+    const sendEmailWhenCustomerIsCreatedHandler =
+      new SendEmailWhenCustomerIsCreatedHandler();
+    const sendSMSWhenCustomerIsCreatedHandler =
+      new SendSMSWhenCustomerIsCreatedHandler();
+
     this.eventDispatcher.register(
       'CustomerCreatedEvent',
-      this.sendEmailWhenCustomerIsCreatedHandler
+      sendEmailWhenCustomerIsCreatedHandler
     );
     this.eventDispatcher.register(
       'CustomerCreatedEvent',
-      this.sendSMSWhenCustomerIsCreatedHandler
+      sendSMSWhenCustomerIsCreatedHandler
     );
   }
 
@@ -65,9 +65,11 @@ export class Customer {
 
   changeAddress(address: Address) {
     this._address = address;
+    const sendEmailWhenCustomerAddressIsUpdatedHandler =
+      new SendEmailWhenCustomerAddressIsUpdatedHandler();
     this.eventDispatcher.register(
       'CustomerAddressChangedEvent',
-      this.sendEmailWhenCustomerAddressIsUpdatedHandler
+      sendEmailWhenCustomerAddressIsUpdatedHandler
     );
   }
 

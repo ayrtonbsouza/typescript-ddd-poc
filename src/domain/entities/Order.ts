@@ -26,6 +26,11 @@ export class Order {
     return this._items;
   }
 
+  set items(items: OrderItem[]) {
+    this._items = items;
+    this._total = this.total();
+  }
+
   validate() {
     if (!this._id) {
       throw new Error('Id is required');
@@ -44,7 +49,18 @@ export class Order {
     }
   }
 
+  changeItems(items: OrderItem[]) {
+    this._items = items;
+  }
+
+  changeCustomerId(customerId: string) {
+    this._customerId = customerId;
+  }
+
   total(): number {
-    return this._items.reduce((acc, item) => acc + item.price, 0);
+    return this._items.reduce(
+      (acc, item) => acc + item.price * item.quantity,
+      0
+    );
   }
 }

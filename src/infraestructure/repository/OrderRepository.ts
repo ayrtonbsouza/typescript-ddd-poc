@@ -24,23 +24,22 @@ export class OrderRepository implements IOrderRepository {
   }
 
   async update(entity: Order): Promise<void> {
+    await OrderItemModel.destroy({ where: { orderId: entity.id } });
+
     entity.items.map(async (item) => {
-      await OrderItemModel.update(
-        {
-          id: item.id,
-          productId: item.productId,
-          name: item.name,
-          price: item.price,
-          quantity: item.quantity,
-        },
-        { where: { id: item.id } }
-      );
+      await OrderItemModel.create({
+        id: item.id,
+        name: item.name,
+        price: item.price,
+        productId: item.productId,
+        quantity: item.quantity,
+        orderId: entity.id,
+      });
     });
 
     await OrderModel.update(
       {
-        id: entity.id,
-        customer_id: entity.customerId,
+        customerId: entity.customerId,
         total: entity.total(),
       },
       {
@@ -50,8 +49,21 @@ export class OrderRepository implements IOrderRepository {
   }
 
   async find(id: string): Promise<Order> {
-    const orderModel = await OrderModel.findOne({ where: { id } });
-    const orderItems = orderModel.items.map(
+    let orderModel;
+
+    try {
+      orderModel = await OrderModel.findOne({
+        where: {
+          id,
+        },
+        include: [{ model: OrderItemModel }],
+        rejectOnEmpty: true,
+      });
+    } catch (error) {
+      throw new Error('Order not found');
+    }
+
+    const items = orderModel.items.map(
       (item) =>
         new OrderItem(
           item.id,
@@ -61,7 +73,10 @@ export class OrderRepository implements IOrderRepository {
           item.quantity
         )
     );
-    return new Order(orderModel.id, orderModel.customerId, orderItems);
+
+    const order = new Order(orderModel.id, orderModel.customerId, items);
+
+    return order;
   }
 
   async findAll(): Promise<Order[]> {
