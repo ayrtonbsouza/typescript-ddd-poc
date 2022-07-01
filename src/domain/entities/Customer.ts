@@ -1,4 +1,9 @@
 import { EventDispatcher } from '../events/@shared/EventDispatcher';
+import { AddressChangedEvent } from '../events/customer/AddressChanged.event';
+import { CustomerCreatedEvent } from '../events/customer/CustomerCreated.event';
+import { SendEmailWhenAddressIsChangedHandler } from '../events/customer/handler/SendEmailWhenAddressIsChanged.handler';
+import { SendEmailWhenCustomerIsCreatedHandler } from '../events/customer/handler/SendEmailWhenCustomerIsCreated.handler';
+import { SendSMSWhenCustomerIsCreatedHandler } from '../events/customer/handler/SendSMSWhenCustomerIsCreated.handler';
 import { Address } from './Address';
 
 export class Customer {
@@ -7,12 +12,20 @@ export class Customer {
   private _address!: Address;
   private _active = false;
   private _rewardPoints = 0;
+
   private eventDispatcher = new EventDispatcher();
+  private sendEmailWhenCustomerIsCreatedHandler =
+    new SendEmailWhenCustomerIsCreatedHandler();
+  private sendSMSWhenCustomerIsCreatedHandler =
+    new SendSMSWhenCustomerIsCreatedHandler();
+  private sendEmailWhenAddressIsChanged =
+    new SendEmailWhenAddressIsChangedHandler();
 
   constructor(id: string, name: string) {
     this._id = id;
     this._name = name;
     this.validate();
+    this.notifyWhenCustomerIsCreated();
   }
 
   validate() {
@@ -48,6 +61,16 @@ export class Customer {
 
   changeAddress(address: Address) {
     this._address = address;
+    this.eventDispatcher.register(
+      'AddressChangedEvent',
+      this.sendEmailWhenAddressIsChanged
+    );
+    const addressChangedEvent = new AddressChangedEvent({
+      id: this._id,
+      name: this._name,
+      address: `${this._address.street}, ${this._address.number}`,
+    });
+    this.eventDispatcher.notify(addressChangedEvent);
   }
 
   activate() {
@@ -68,5 +91,19 @@ export class Customer {
 
   addRewardPoints(points: number) {
     this._rewardPoints += points;
+  }
+
+  private notifyWhenCustomerIsCreated() {
+    this.eventDispatcher.register(
+      'CustomerCreatedEvent',
+      this.sendEmailWhenCustomerIsCreatedHandler
+    );
+    this.eventDispatcher.register(
+      'CustomerCreatedEvent',
+      this.sendSMSWhenCustomerIsCreatedHandler
+    );
+
+    const customerCreatedEvent = new CustomerCreatedEvent({});
+    this.eventDispatcher.notify(customerCreatedEvent);
   }
 }
