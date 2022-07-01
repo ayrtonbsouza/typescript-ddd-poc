@@ -1,4 +1,4 @@
-import { IEvent } from '../@shared/IEvent';
+import { IEvent } from '../../@shared/events/IEvent';
 
 export class ProductCreatedEvent implements IEvent {
   dateTimeOccurred: Date;

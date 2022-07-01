@@ -1,7 +1,7 @@
-import { SendEmailWhenAddressIsChangedHandler } from '../events/customer/handler/SendEmailWhenAddressIsChanged.handler';
-import { SendEmailWhenCustomerIsCreatedHandler } from '../events/customer/handler/SendEmailWhenCustomerIsCreated.handler';
-import { SendSMSWhenCustomerIsCreatedHandler } from '../events/customer/handler/SendSMSWhenCustomerIsCreated.handler';
-import { Address } from './Address';
+import { SendEmailWhenAddressIsChangedHandler } from '../events/handler/SendEmailWhenAddressIsChanged.handler';
+import { SendEmailWhenCustomerIsCreatedHandler } from '../events/handler/SendEmailWhenCustomerIsCreated.handler';
+import { SendSMSWhenCustomerIsCreatedHandler } from '../events/handler/SendSMSWhenCustomerIsCreated.handler';
+import { Address } from '../value-object/Address';
 import { Customer } from './Customer';
 
 describe('Customer Entity', () => {

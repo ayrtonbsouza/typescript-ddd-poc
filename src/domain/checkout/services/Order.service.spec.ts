@@ -1,4 +1,6 @@
-import { Customer, Order, OrderItem } from '../entities';
+import { Customer } from '../../customer/entities/Customer';
+import { Order } from '../entities/Order';
+import { OrderItem } from '../entities/OrderItem';
 import { OrderService } from './Order.service';
 
 describe('Order Service', () => {

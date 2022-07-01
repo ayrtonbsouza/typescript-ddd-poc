@@ -1,10 +1,10 @@
-import { EventDispatcher } from '../events/@shared/EventDispatcher';
-import { AddressChangedEvent } from '../events/customer/AddressChanged.event';
-import { CustomerCreatedEvent } from '../events/customer/CustomerCreated.event';
-import { SendEmailWhenAddressIsChangedHandler } from '../events/customer/handler/SendEmailWhenAddressIsChanged.handler';
-import { SendEmailWhenCustomerIsCreatedHandler } from '../events/customer/handler/SendEmailWhenCustomerIsCreated.handler';
-import { SendSMSWhenCustomerIsCreatedHandler } from '../events/customer/handler/SendSMSWhenCustomerIsCreated.handler';
-import { Address } from './Address';
+import { EventDispatcher } from '../../@shared/events/EventDispatcher';
+import { AddressChangedEvent } from '../events/AddressChanged.event';
+import { CustomerCreatedEvent } from '../events/CustomerCreated.event';
+import { SendEmailWhenAddressIsChangedHandler } from '../events/handler/SendEmailWhenAddressIsChanged.handler';
+import { SendEmailWhenCustomerIsCreatedHandler } from '../events/handler/SendEmailWhenCustomerIsCreated.handler';
+import { SendSMSWhenCustomerIsCreatedHandler } from '../events/handler/SendSMSWhenCustomerIsCreated.handler';
+import { Address } from '../value-object/Address';
 
 export class Customer {
   private _id: string;

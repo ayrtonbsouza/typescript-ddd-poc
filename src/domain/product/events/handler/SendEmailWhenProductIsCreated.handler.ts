@@ -1,4 +1,4 @@
-import { IEventHandler } from '../../@shared/IEventHandler';
+import { IEventHandler } from '../../../@shared/events/IEventHandler';
 import { ProductCreatedEvent } from '../ProductCreated.event';
 
 export class SendEmailWhenProductIsCreatedHandler
