@@ -1,7 +1,4 @@
 import { EventDispatcher } from '../events/@shared/EventDispatcher';
-import { SendEmailWhenCustomerAddressIsUpdatedHandler } from '../events/customer/handler/SendEmailWhenCustomerAddressIsUpdatedHandler';
-import { SendEmailWhenCustomerIsCreatedHandler } from '../events/customer/handler/SendEmailWhenCustomerIsCreatedHandler';
-import { SendSMSWhenCustomerIsCreatedHandler } from '../events/customer/handler/SendSMSWhenCustomerIsCreatedHandler';
 import { Address } from './Address';
 
 export class Customer {
@@ -16,20 +13,6 @@ export class Customer {
     this._id = id;
     this._name = name;
     this.validate();
-
-    const sendEmailWhenCustomerIsCreatedHandler =
-      new SendEmailWhenCustomerIsCreatedHandler();
-    const sendSMSWhenCustomerIsCreatedHandler =
-      new SendSMSWhenCustomerIsCreatedHandler();
-
-    this.eventDispatcher.register(
-      'CustomerCreatedEvent',
-      sendEmailWhenCustomerIsCreatedHandler
-    );
-    this.eventDispatcher.register(
-      'CustomerCreatedEvent',
-      sendSMSWhenCustomerIsCreatedHandler
-    );
   }
 
   validate() {
@@ -65,12 +48,6 @@ export class Customer {
 
   changeAddress(address: Address) {
     this._address = address;
-    const sendEmailWhenCustomerAddressIsUpdatedHandler =
-      new SendEmailWhenCustomerAddressIsUpdatedHandler();
-    this.eventDispatcher.register(
-      'CustomerAddressChangedEvent',
-      sendEmailWhenCustomerAddressIsUpdatedHandler
-    );
   }
 
   activate() {
