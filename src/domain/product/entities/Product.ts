@@ -1,4 +1,6 @@
-export class Product {
+import { IProduct } from './IProduct';
+
+export class Product implements IProduct {
   private _id: string;
   private _name: string;
   private _price: number;
